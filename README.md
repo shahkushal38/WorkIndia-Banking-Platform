@@ -1,12 +1,14 @@
 
 # WorkIndia-Banking App
 This is the project for WorkIndia Banking application APIs
+
 An API application that can create a new account and display balance of a user, save its transactions and add money to user account
 
 
 ## Requirements:
 
 ### User account registration by Admin:
+
 Create a user account only by admin
 
 [POST] /app/admin/bankaccount
@@ -29,6 +31,8 @@ Response Data: {
  "account_number": ""
  }
 }
+
+
 ***Curl command to creating user account***:
 ```
 curl --request POST \
@@ -55,13 +59,17 @@ Request Data: {
  "username": str,
  "pin": str
 }
+
 For success,
+
 Response Data: {
  "status": 'success',
  "username': str,
  "status_code": 200
 }
+
 For failure,
+
 Response Data: {
  "status": "Incorrect username/password provided. Please retry",
  "status_code": 401
@@ -81,7 +89,9 @@ curl --request POST \
 
 
 ### Get a Balance Enquiry for User: 
+
 Uer can view their account balance
+
 [GET] /app/account/balance?account_no={account_number)
 
 Request Data: None
@@ -119,7 +129,8 @@ Response Data: {
  'status_code': 200
 }
 
-***Curl command to test ***:
+***Curl command to test***:
+
 ```
 curl --request POST \
   --url http://localhost:3000/account/transaction/add \
