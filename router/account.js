@@ -80,7 +80,7 @@ router.get("/balance/:account_no", function(req,res){
 
 });
 
-router.post("/transaction/add",async  function(req,res){
+router.post("/transaction/add", function(req,res){
     try{
         if(req.body && req.body.account_number && req.body.amount){
             var account_number = req.body.account_number;
@@ -89,9 +89,9 @@ router.post("/transaction/add",async  function(req,res){
 
             const query = `insert into transaction(account_number, transaction_status, transaction_type, amount, transaction_mode) 
             values("${account_number}", "completed", "deposit", "${amount}", "${transaction_mode}")`;
-            const query1 = `select amount from balance where account_number ="${account_number}" `;
+            const query1 = `select balance from balance where account_number ="${account_number}" `;
             var oldAmount =0;
-            await  connection.query(query1, function(err, rows, fields){
+            connection.query(query1, function(err, rows, fields){
                 if(err) {
                     res.status(statusCodes.Bad_Request).send({
                         error: "Account Number not found",
@@ -102,9 +102,9 @@ router.post("/transaction/add",async  function(req,res){
             });
             var newAmount = parseFloat(oldAmount)+ amount;
             console.log("new amount---",newAmount);
-            const query2 = `update balance set amount="${newAmount}" where account_number = "${account_number}"`;
+            const query2 = `update balance set balance="${newAmount}" where account_number = "${account_number}"`;
 
-            await connection.query(query2, function(err, rows, fields){
+            connection.query(query2, function(err, rows, fields){
                 if(err) {
                     res.status(statusCodes.Bad_Request).send({
                         error: "Account Number not found",
